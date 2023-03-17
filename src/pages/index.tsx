@@ -3,6 +3,8 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import { Hamburger } from "@/assets/icons";
+import Navbar from "../../components/layout/Navbar";
+import Layout from "../../components/layout/Layout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +18,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className=" text-green-500">hello</div>
+      <Layout />
     </>
   );
 }
