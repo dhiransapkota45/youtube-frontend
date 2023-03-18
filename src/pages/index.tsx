@@ -6,8 +6,6 @@ import { Hamburger } from "@/assets/icons";
 import Navbar from "../../components/layout/Navbar";
 import Layout from "../../components/layout/Layout";
 
-import store from "../../redux/store";
-import { Provider } from "react-redux";
 // const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
@@ -20,11 +18,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Provider store={store}>
-        <Layout>
-          
-        </Layout>
-      </Provider>
+    <div>
+      hello
+    </div>
+
     </>
   );
 }

@@ -2,13 +2,31 @@ import { Hamburger, Notification, Search } from "@/assets/icons";
 import React from "react";
 import Image from "next/image";
 import YTLogo from "../../src/assets/logos/yt-logo.png";
+import { setMode, setSideCollapsed } from "../../redux/modeSlice";
+
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../redux/rootReducers";
+
+import { IoNotificationsOutline } from "react-icons/io5";
+
+import { GiHamburgerMenu } from "react-icons/gi";
 
 const Navbar = () => {
   const [search, setSearch] = React.useState<boolean>(false);
+  const dispatch = useDispatch();
+
+  const darkmodeHandler = () => {
+    dispatch(setMode());
+  };
+
   return (
-    <div className=" flex justify-between bg-green-300 h-full py-2 ">
+    <div
+      className={` flex justify-between animation h-full py-2 p-3 dark:bg-black dark:text-white `}
+    >
       <div className=" flex items-center gap-x-4 ">
-        <Hamburger className="text-3xl" />
+        <button onClick={() => dispatch(setSideCollapsed())}>
+          <GiHamburgerMenu className="text-3xl" />
+        </button>
         <Image src={YTLogo} alt="logo" width={100} height={100} />
       </div>
 
@@ -25,7 +43,7 @@ const Navbar = () => {
             onBlur={(e) => {
               setSearch(false);
             }}
-            className="p-2 flex-1 outline-none pl-5 bg-transparent text-black"
+            className="p-2 flex-1 outline-none pl-5 bg-transparent"
             placeholder="Search"
             type="text"
           />
@@ -35,7 +53,8 @@ const Navbar = () => {
         </div>
       </div>
       <div className=" flex items-center">
-        <Notification />
+        <button onClick={darkmodeHandler}>Dark mode</button>
+        <IoNotificationsOutline className="text-2xl" />
         <div>profile</div>
       </div>
     </div>
@@ -43,4 +62,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-  

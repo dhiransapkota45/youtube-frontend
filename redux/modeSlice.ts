@@ -1,23 +1,30 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 interface ModeState {
-  mode: string;
+  mode: boolean;
+  sidebarCollapsed: boolean;
 }
 
 const initialState: ModeState = {
-  mode: "light",
+  mode: false, 
+  sidebarCollapsed: false,
 };
 
 export const modeSlice = createSlice({
   name: "mode",
   initialState,
   reducers: {
-    setMode: (state, action: PayloadAction<string>) => {
-      state.mode = action.payload;
+    setMode: (state) => {
+      state.mode = !state.mode;
+    },
+    setSideCollapsed: (state) => {
+      state.sidebarCollapsed = !state.sidebarCollapsed;
     },
   },
 });
 
-export const { setMode } = modeSlice.actions;
+export const { setMode, setSideCollapsed } = modeSlice.actions;
 
 export default modeSlice.reducer;
+
+// action: PayloadAction<string>
