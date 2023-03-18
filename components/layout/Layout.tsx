@@ -2,7 +2,15 @@ import React from "react";
 import Navbar from "./Navbar";
 import SideBar from "./SideBar";
 
-const Layout = () => {
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/rootReducers";
+
+type Props = {
+  children: React.ReactNode;
+};
+const Layout = ({ children }: Props) => {
+  const { mode } = useSelector((state: RootState) => state.mode);
+  
   return (
     <div className=" h-screen flex flex-col">
       <div className="sticky top-0">
@@ -15,7 +23,7 @@ const Layout = () => {
         </div>
 
         <div className=" flex-1 overflow-auto ">
-          <div>hello</div>
+          <div>{children}</div>
         </div>
       </div>
     </div>
