@@ -21,7 +21,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={` flex justify-between animation h-full py-2 p-3 dark:bg-black dark:text-white `}
+      className={` flex justify-between animation h-full py-2 p-3  `}
     >
       <div className=" flex items-center gap-x-4 ">
         <button onClick={() => dispatch(setSideCollapsed())}>

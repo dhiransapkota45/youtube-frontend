@@ -12,21 +12,21 @@ const Layout = ({ children }: Props) => {
     (state: RootState) => state.mode
   );
   return (
-    <div className={`h-screen flex flex-col  ${mode && "dark"}`}>
+    <div className={`h-screen flex flex-col  ${mode && "dark"} bg-bg-primary text-text-primary duration-300 `}>
       <div className="sticky top-0">
         <Navbar />
       </div>
 
       <div className=" flex-1 flex overflow-hidden  h-full ">
         <div
-          className={`bg-primary animation dark:bg-darkPrimary ${
+          className={`bg-primary  ${
             sidebarCollapsed ? "basis-16" : "basis-80"
           }  overflow-auto`}
         >
           <SideBar />
         </div>
 
-        <div className=" flex-1 overflow-auto ">
+        <div className=" flex-1 overflow-auto duration-300 p-4 ">
           <div>{children}</div>
         </div>
       </div>

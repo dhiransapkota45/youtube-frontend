@@ -12,12 +12,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "white",
-        secondary: "#f3f4f6",
-        tertiary: "#d1d5db",
-        darkPrimary: "black",
-        darkSecondary: "#18181b",
-        darkTertiary: "#3f3f46",
+        bg: {
+          primary: "var(--color-primary)",
+          secondary: "var(--color-secondary)",
+          tertiary: "var(--color-tertery)",
+        },
+        text: {
+          primary: "var(--text-primary)",
+          secondary: "var(--text-secondary)",
+          tertiary: "var(--text-tertiary)",
+        },
       },
     },
   },

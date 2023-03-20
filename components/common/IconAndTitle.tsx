@@ -17,8 +17,8 @@ const IconAndTitle = ({ path, icon, name }: Prop) => {
   return (
     <Link
       className={`${
-        router.pathname === path && "bg-secondary dark:bg-darkSecondary"
-      } w-full my-2 rounded-md p-2 py-3  animation flex gap-x-4 bg-primary dark:bg-darkPrimary text-darkPrimary dark:text-tertiary hover:bg-secondary dark:hover:bg-darkSecondary hover:text-darkSecondary dark:hover:text-secondary`}
+        router.pathname === path && "bg-bg-secondary "
+      } w-full my-2 rounded-md p-2 py-3  flex gap-x-4 bg-primary  hover:bg-bg-secondary `}
       href={path}
     >
       <div className=" text-2xl">{icon}</div>
