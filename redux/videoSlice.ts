@@ -1,5 +1,4 @@
-import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { api_instance } from "../api/instance";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { fetchrandomVideos } from "../api/videos/videos";
 
 export interface video {
@@ -11,6 +10,8 @@ export interface video {
     fullname: string;
     profile_pic: string;
   };
+  views: number;
+  createdAt: Date;
 }
 
 interface VideoState {

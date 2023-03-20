@@ -9,9 +9,10 @@ type Prop = {
   video: video;
 };
 
+// need to show date also in the VideoCard
 const VideoCard = ({ video }: Prop) => {
   const router = useRouter();
-  const { _id, thumbnail, title, uploader } = video;
+  const { _id, thumbnail, title, uploader, createdAt, views } = video;
   const [openModal, setOpenModel] = useState(false);
 
   return (
@@ -38,7 +39,7 @@ const VideoCard = ({ video }: Prop) => {
         <div>
           <div className=" font-bold">{title}</div>
           <div>{uploader.fullname}</div>
-          <div>views, date</div>
+          <div>{views} views</div>
         </div>
 
         <button

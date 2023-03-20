@@ -1,5 +1,5 @@
 import { Hamburger, Notification, Search } from "@/assets/icons";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import YTLogo from "../../src/assets/logos/yt-logo.png";
 import { setMode, setSideCollapsed } from "../../redux/modeSlice";
@@ -8,8 +8,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../redux/rootReducers";
 
 import { IoNotificationsOutline } from "react-icons/io5";
-
 import { GiHamburgerMenu } from "react-icons/gi";
+
+// import Cookies from "js-cookie";
 
 const Navbar = () => {
   const [search, setSearch] = React.useState<boolean>(false);
@@ -19,10 +20,15 @@ const Navbar = () => {
     dispatch(setMode());
   };
 
+  // useEffect(() => {
+  //   if (Cookies.get("accessToken")) {
+  //     console.log("got it");
+  //   } else {
+  //     console.log("leave it");
+  //   }
+  // }, []);
   return (
-    <div
-      className={` flex justify-between animation h-full py-2 p-3  `}
-    >
+    <div className={` flex justify-between animation h-full py-2 p-3  `}>
       <div className=" flex items-center gap-x-4 ">
         <button onClick={() => dispatch(setSideCollapsed())}>
           <GiHamburgerMenu className="text-3xl" />
