@@ -18,7 +18,7 @@ const VideoCard = ({ video }: Prop) => {
   return (
     <div
       onClick={() => router.push(`/video/${_id}`)}
-      className=" rounded-lg shadow cursor-pointer "
+      className=" hover:scale-105 hover:shadow-2xl animation rounded-lg shadow cursor-pointer "
     >
       <div className="w-full h-60 relative ">
         <Image

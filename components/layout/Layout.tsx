@@ -34,7 +34,7 @@ const Layout = ({ children }: Props) => {
           <div
             className={`bg-primary  ${
               sidebarCollapsed ? "basis-16" : "basis-80"
-            }  overflow-auto`}
+            }  overflow-auto animation`}
           >
             <SideBar />
           </div>

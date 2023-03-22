@@ -10,6 +10,7 @@ import { RootState } from "../../redux/rootReducers";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { GiHamburgerMenu } from "react-icons/gi";
 
+import Cookies from "js-cookie";
 // import Cookies from "js-cookie";
 
 const Navbar = () => {
@@ -20,13 +21,13 @@ const Navbar = () => {
     dispatch(setMode());
   };
 
-  // useEffect(() => {
-  //   if (Cookies.get("accessToken")) {
-  //     console.log("got it");
-  //   } else {
-  //     console.log("leave it");
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (Cookies.get("accessToken")) {
+      console.log("got it");
+    } else {
+      console.log("leave it");
+    }
+  }, []);
   return (
     <div className={` flex justify-between animation h-full py-2 p-3  `}>
       <div className=" flex items-center gap-x-4 ">
@@ -58,7 +59,7 @@ const Navbar = () => {
           </button>
         </div>
       </div>
-      <div className=" flex items-center">
+      <div className=" flex items-center gap-x-6 ">
         <button onClick={darkmodeHandler}>Dark mode</button>
         <IoNotificationsOutline className="text-2xl" />
         <div>profile</div>
