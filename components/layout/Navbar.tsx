@@ -14,7 +14,6 @@ import Cookies from "js-cookie";
 import { activeUser } from "../../api/user/activeUser";
 import { AppDispatch } from "../../redux/store";
 import Link from "next/link";
-// import Cookies from "js-cookie";
 
 const Navbar = () => {
   const [search, setSearch] = React.useState<boolean>(false);
@@ -66,15 +65,30 @@ const Navbar = () => {
         </div>
       </div>
       <div className=" flex items-center gap-x-6 ">
+        <button
+          onClick={() => {
+            Cookies.remove("accessToken");
+            Cookies.remove("refreshToken");
+          }}
+        >
+          logout tempo.
+        </button>
+
         <button onClick={darkmodeHandler}>Dark mode</button>
         <IoNotificationsOutline className="text-2xl" />
         <div>
           {loading ? (
             "loading"
           ) : Object.keys(user).length === 0 ? (
-            <div>Login</div>
+            <Link href="/login">Login</Link>
           ) : (
-            "user details"
+            <div className=" w-12 h-12 rounded-full overflow-hidden relative">
+              <Image
+                src={`${process.env.BACKEND_URL}/images/${user.profile_pic}`}
+                alt="profile"
+                fill
+              />
+            </div>
           )}
         </div>
       </div>

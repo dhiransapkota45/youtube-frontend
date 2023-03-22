@@ -14,9 +14,7 @@ import {
   AiOutlineDislike,
   AiOutlineLike,
 } from "react-icons/ai";
-
-
-
+import CommentSection from "./CommentSection";
 
 const VideoDetails = () => {
   const { loading, data, error } = useSelector(
@@ -24,7 +22,7 @@ const VideoDetails = () => {
   );
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
-  
+
   const newdate = new Date(data.createdAt).toLocaleDateString();
 
   const onActionHandler = (action: string) => {
@@ -105,20 +103,14 @@ const VideoDetails = () => {
               <div>{newdate}</div>
             </div>
 
-            <div className=" bg-gray-100 rounded-md p-4 my-4">
+            <div className=" bg-bg-secondary rounded-md p-4 my-4">
               {data.description}
             </div>
           </div>
 
-          <form onSubmit={onsubmithandler}>
-            <input
-              type="text"
-              name=""
-              id=""
-              placeholder="comment here"
-              className="w-full border rounded p-2"
-            />
-          </form>
+          <div>
+            <CommentSection onsubmithandler={onsubmithandler} />
+          </div>
         </div>
       )}
     </div>

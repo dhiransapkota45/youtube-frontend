@@ -5,10 +5,9 @@ import Cookies from "js-cookie";
 
 // try to remove any of router
 
-export const signin = async (user: Userdetails, router: NextRouter) => {
+export const signin = async (user: Userdetails, router: any) => {
   try {
     const response = await api_instance.post("/api/users/signin", user);
-    console.log(response);
     Cookies.set("accessToken", response.data.accessToken);
     Cookies.set("refreshToken", response.data.refreshToken);
     router.push("/");
