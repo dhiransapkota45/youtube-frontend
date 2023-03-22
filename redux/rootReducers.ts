@@ -1,4 +1,5 @@
 import { combineReducers } from "@reduxjs/toolkit";
+import activeUserSlice from "./activeUser";
 import activeVideoSlice from "./activeVideoSlice";
 import modeSlice from "./modeSlice";
 import userSlice from "./userSlice";
@@ -9,6 +10,7 @@ const rootReducer = combineReducers({
   videos: videoSlice,
   user: userSlice,
   activeVideo: activeVideoSlice,
+  activeUser: activeUserSlice,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

@@ -11,12 +11,17 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 import Cookies from "js-cookie";
+import { activeUser } from "../../api/user/activeUser";
+import { AppDispatch } from "../../redux/store";
+import Link from "next/link";
 // import Cookies from "js-cookie";
 
 const Navbar = () => {
   const [search, setSearch] = React.useState<boolean>(false);
-  const dispatch = useDispatch();
-
+  const dispatch = useDispatch<AppDispatch>();
+  const { error, loading, user } = useSelector(
+    (store: RootState) => store.activeUser
+  );
   const darkmodeHandler = () => {
     dispatch(setMode());
   };
@@ -24,8 +29,7 @@ const Navbar = () => {
   useEffect(() => {
     if (Cookies.get("accessToken")) {
       console.log("got it");
-    } else {
-      console.log("leave it");
+      dispatch(activeUser());
     }
   }, []);
   return (
@@ -34,7 +38,9 @@ const Navbar = () => {
         <button onClick={() => dispatch(setSideCollapsed())}>
           <GiHamburgerMenu className="text-3xl" />
         </button>
-        <Image src={YTLogo} alt="logo" width={100} height={100} />
+        <Link href="/">
+          <Image src={YTLogo} alt="logo" width={100} height={100} />
+        </Link>
       </div>
 
       <div className=" flex items-center ">
@@ -62,7 +68,15 @@ const Navbar = () => {
       <div className=" flex items-center gap-x-6 ">
         <button onClick={darkmodeHandler}>Dark mode</button>
         <IoNotificationsOutline className="text-2xl" />
-        <div>profile</div>
+        <div>
+          {loading ? (
+            "loading"
+          ) : Object.keys(user).length === 0 ? (
+            <div>Login</div>
+          ) : (
+            "user details"
+          )}
+        </div>
       </div>
     </div>
   );
