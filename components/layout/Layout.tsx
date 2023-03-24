@@ -14,24 +14,28 @@ const Layout = ({ children }: Props) => {
     (state: RootState) => state.mode
   );
 
-  const router = useRouter();
+  const { pathname } = useRouter();
+  console.log(pathname);
+
+  const routesToHideNavbar = ["/login", "/signup"];
+  const routesToHideSidebar = [...routesToHideNavbar, `/video/[videoid]`];
+
+  console.log(routesToHideNavbar.includes(pathname));
+
   return (
     <div
       className={`h-screen flex flex-col  ${
         mode && "dark"
       } bg-bg-primary text-text-primary duration-300 `}
     >
-      {!router.pathname.includes("/login") && (
+      {!routesToHideNavbar.includes(pathname) && (
         <div className="sticky top-0">
           <Navbar />
         </div>
       )}
 
       <div className=" flex-1 flex overflow-hidden  h-full ">
-        {!(
-          router.pathname.includes("/video") ||
-          router.pathname.includes("/login")
-        ) && (
+        {!routesToHideSidebar.includes(pathname) && (
           <div
             className={`bg-primary  ${
               sidebarCollapsed ? "basis-16" : "basis-80"

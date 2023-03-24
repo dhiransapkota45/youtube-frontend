@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Router, useRouter } from "next/router";
 import Cookies from "js-cookie";
 import Link from "next/link";
@@ -7,11 +7,19 @@ type Prop = {
   children: React.ReactNode;
 };
 
-//no need to use state fix this
 const SubscribeStatus = ({ children }: Prop) => {
-  const [userLoginStatus, setUserLoginStatus] = useState<boolean>(
-    Cookies.get("accessToken") ? true : false
-  );
+  const router = useRouter();
+  const [userLoginStatus, setUserLoginStatus] = useState<boolean>(false);
+
+  useEffect(() => {
+    const token = Cookies.get("accessToken");
+    if (token) {
+      setUserLoginStatus(true);
+    }
+  }, [router.pathname]);
+
+  console.log("cookie", Cookies.get("accessToken"));
+
   const { pathname } = useRouter();
   const routes = [
     "/subscriptions",

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { signin } from "../../api/auth/auth";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 export interface Userdetails {
   username: string;
@@ -49,7 +50,13 @@ const Login = () => {
       />
       <div>{error.password && <p>{error.password}</p>}</div>
 
-      <input type="submit" value="Signup" />
+      <input type="submit" value="Signin" />
+      <div>
+        Dont have an channel,{" "}
+        <Link href="/signup" className=" bg-red-200">
+          Signup
+        </Link>
+      </div>
     </form>
   );
 };

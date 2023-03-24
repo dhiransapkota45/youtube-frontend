@@ -24,6 +24,10 @@ const Navbar = () => {
   const darkmodeHandler = () => {
     dispatch(setMode());
   };
+  const logout = () => {
+    Cookies.remove("accessToken");
+    Cookies.remove("refreshToken");
+  };
 
   useEffect(() => {
     if (Cookies.get("accessToken")) {
@@ -65,14 +69,7 @@ const Navbar = () => {
         </div>
       </div>
       <div className=" flex items-center gap-x-6 ">
-        <button
-          onClick={() => {
-            Cookies.remove("accessToken");
-            Cookies.remove("refreshToken");
-          }}
-        >
-          logout tempo.
-        </button>
+        <button onClick={logout}>logout tempo.</button>
 
         <button onClick={darkmodeHandler}>Dark mode</button>
         <IoNotificationsOutline className="text-2xl" />
