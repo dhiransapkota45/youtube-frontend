@@ -34,16 +34,16 @@ const CommentSection = ({ onsubmithandler }: Props) => {
           name=""
           id=""
           placeholder="comment here"
-          className="w-full border border-bg-tertiary outline-none rounded p-2 bg-bg-secondary"
+          className="w-full  outline-none rounded-full my-1 py-2 px-4 bg-bg-secondary"
         />
       </form>
 
-      <div>
-        {comments.length === 0 ? (
+      <div className="">
+        {comments?.length === 0 ? (
           <div>No comments</div>
         ) : (
-          <div>
-            {comments.map((comment: Comment) => {
+          <div className="rounded-xl border overflow-hidden">
+            {comments?.map((comment: Comment) => {
               return <Comment key={comment._id} comment={comment} />;
             })}
           </div>

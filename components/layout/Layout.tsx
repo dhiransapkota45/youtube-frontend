@@ -4,6 +4,7 @@ import { RootState } from "../../redux/rootReducers";
 import Navbar from "./Navbar";
 import SideBar from "./SideBar";
 import { useRouter } from "next/router";
+import SubscribeStatus from "./SubscribeStatus";
 
 type Props = {
   children: React.ReactNode;
@@ -41,7 +42,9 @@ const Layout = ({ children }: Props) => {
         )}
 
         <div className=" flex-1 overflow-auto duration-300 p-4 ">
-          <div>{children}</div>
+          <SubscribeStatus>
+            <div>{children}</div>
+          </SubscribeStatus>
         </div>
       </div>
     </div>

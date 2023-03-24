@@ -21,7 +21,7 @@ const Comment = ({ comment }: Prop) => {
   };
 
   return (
-    <div className=" w-full  px-6 py-3 bg-bg-secondary flex ">
+    <div className=" w-full px-6 py-3 bg-bg-secondary flex ">
       <div className=" w-10 h-10 mr-3 rounded-full overflow-hidden relative">
         <Image
           src={`${process.env.BACKEND_URL}/images/${comment.commenter.profile_pic}`}
@@ -30,10 +30,10 @@ const Comment = ({ comment }: Prop) => {
         />
       </div>
 
-      <div className=" flex flex-col">
+      <div className=" flex-1 flex flex-col">
         <div className="">{comment.commenter.username}</div>
         <div className="">{comment.comment}</div>
-        <div className="flex gap-x-3 items-center relative">
+        <div className="flex gap-x-3  items-center relative">
           <button className=" ">
             <AiOutlineLike className="" />
           </button>
@@ -44,20 +44,24 @@ const Comment = ({ comment }: Prop) => {
           <button onClick={replyHandler}>reply</button>
         </div>
 
-        {replyModal && (
-          <div>
-            <input
-              type="text"
-              placeholder="reply"
-              className="border bg-red-500 block"
-            />
-          </div>
-        )}
+        {/* {replyModal && ( */}
+        <div
+          className={` w-full ${
+            replyModal ? "h-full" : "h-0"
+          } animation my-2  overflow-hidden  `}
+        >
+          <input
+            type="text"
+            placeholder="reply"
+            className="border border-bg-tertiary bg-bg-primary rounded-lg py-1 w-full outline-none px-3"
+          />
+        </div>
+        {/* )} */}
 
-        <div className=" text-blue-500 flex items-center mt-1 gap-x-1">
+        <button className=" text-blue-500 flex items-center mt-1 gap-x-1">
           <AiFillCaretDown className="text-xl mt-1" /> view
           {comment.replies.length} replies
-        </div>
+        </button>
       </div>
     </div>
   );

@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 const subscriptions = () => {
-  return (
-    <div>subscriptions</div>
-  )
-}
+  // const router = useRouter();
 
-export default subscriptions
+  return <div>hrllo</div>;
+};
+
+export default subscriptions;

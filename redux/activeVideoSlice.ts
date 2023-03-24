@@ -23,21 +23,21 @@ import { activeVideo } from "../api/videos/activeVideo";
 // }
 
 interface IndivisualVideo {
-  _id?: number;
-  title?: string;
-  description?: string;
-  likes?: number;
-  dislikes?: number;
-  comments?: any;
-  views?: number;
-  uploader?: {
+  _id: number;
+  title: string;
+  description: string;
+  likes: any;
+  dislikes: any;
+  comments: any;
+  views: number;
+  uploader: {
     _id: number;
     fullname: string;
     username: string;
     profile_pic: string;
-    subscribers: number;
+    subscribers: any;
   };
-  createdAt?: Date;
+  createdAt: Date;
 }
 interface IinitialState {
   loading: boolean;
@@ -47,13 +47,29 @@ interface IinitialState {
 const initialState: IinitialState = {
   loading: true,
   error: null,
-  data: {},
+  data: {} as IndivisualVideo,
 };
 
 const activeVideoSlice = createSlice({
   name: "activeVideo",
   initialState,
-  reducers: {},
+  reducers: {
+    likevideo: (state, { payload }) => {
+      const { msg, activeuser } = payload;
+      if (msg === "liked") {
+        state.data.likes.push(activeuser);
+      } else if (msg === "unliked") {
+        console.log("i got fired");
+
+        const index = state.data.likes.indexOf(activeuser);
+        if (index > -1) {
+          state.data.likes.splice(index, 1);
+        }
+      } else {
+        state;
+      }
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(activeVideo.pending, (state) => {
       state.loading = true;
@@ -69,4 +85,5 @@ const activeVideoSlice = createSlice({
   },
 });
 
+export const { likevideo } = activeVideoSlice.actions;
 export default activeVideoSlice.reducer;

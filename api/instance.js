@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import Cookies from "js-cookie";
 
@@ -35,7 +34,7 @@ api_instance.interceptors.response.use(
     ) {
       originalRequest._retry = true;
       return axios
-        .post(`${baseURL}/api/users/verifyrefresh`, {
+        .post(`${process.env.BACKEND_URL}/api/users/verifyrefresh`, {
           refreshToken: refreshToken,
         })
         .then((res) => {
@@ -53,4 +52,3 @@ api_instance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-

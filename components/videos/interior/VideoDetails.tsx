@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { activeVideo } from "../../../api/videos/activeVideo";
+import { activeVideo, likeOneVideo } from "../../../api/videos/activeVideo";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../../redux/store";
@@ -20,6 +20,8 @@ const VideoDetails = () => {
   const { loading, data, error } = useSelector(
     (store: RootState) => store.activeVideo
   );
+
+  const activeuser = useSelector((store: RootState) => store.activeUser);
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
 
@@ -31,6 +33,9 @@ const VideoDetails = () => {
     } else {
       console.log("liked");
       toaster("success", "implement logic for like");
+      if (action === "like") {
+        likeOneVideo(data._id, activeuser.user._id, dispatch);
+      }
     }
   };
 
@@ -68,11 +73,14 @@ const VideoDetails = () => {
                 {data.uploader?.fullname}
               </div>
               <div className=" text-text-secondary text-sm font-medium">
-                {data.uploader?.subscribers} subscribers
+                {data.uploader?.subscribers.length} subscribers
               </div>
             </div>
 
-            <button className=" bg-red-500 rounded-3xl font-semibold text-white px-6 py-2">
+            <button
+              onClick={() => onActionHandler("subscribe")}
+              className=" bg-red-500 rounded-3xl font-semibold text-white px-6 py-2"
+            >
               Subscribe
             </button>
 
@@ -81,8 +89,14 @@ const VideoDetails = () => {
                 onClick={() => onActionHandler("like")}
                 className=" flex gap-3 py-2 px-4"
               >
-                <AiOutlineLike className="text-2xl" />
-                <span>{data.likes}</span>
+                {(data.likes?.includes(activeuser.user?._id)) ? (
+                  <AiFillLike className="text-2xl" />
+                ) : (
+                  <AiOutlineLike className="text-2xl" />
+                )}
+                {/* <AiOutlineLike className="text-2xl" /> */}
+
+                <span>{data.likes?.length}</span>
               </button>
 
               <div className=" divide-x border border-bg-primary"></div>
@@ -92,7 +106,7 @@ const VideoDetails = () => {
                 className=" flex gap-3 py-2 px-4"
               >
                 <AiOutlineDislike className="text-2xl" />
-                <span>{data.dislikes}</span>
+                <span>{data.dislikes?.length}</span>
               </button>
             </div>
           </div>
