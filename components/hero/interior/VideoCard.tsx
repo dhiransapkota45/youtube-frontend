@@ -30,7 +30,7 @@ const VideoCard = ({ video }: Prop) => {
       <div className=" flex px-2 my-2 relative">
         <div className=" w-12 h-12 rounded-full mr-4 overflow-hidden relative">
           <Image
-            src={`${process.env.BACKEND_URL}/images/${uploader.profile_pic}`}
+            src={`${process.env.BACKEND_URL}/images/${uploader?.profile_pic}`}
             alt="profile_pic"
             fill
           />
@@ -38,7 +38,7 @@ const VideoCard = ({ video }: Prop) => {
 
         <div>
           <div className=" font-bold">{title}</div>
-          <div>{uploader.fullname}</div>
+          <div>{uploader?.fullname}</div>
           <div>{views} views</div>
         </div>
 

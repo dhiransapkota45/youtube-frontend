@@ -9,15 +9,36 @@ import {
   AiOutlineDislike,
   AiOutlineLike,
 } from "react-icons/ai";
+import {
+  commentOnVideo,
+  getCommentReplies,
+} from "../../../api/videos/activeVideo";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/rootReducers";
+import { useDispatch } from "react-redux";
 
 type Prop = {
   comment: Comment;
 };
 
-const Comment = ({ comment }: Prop) => {
+// --------------------------------------------
+const CommentBox = ({ comment }: Prop) => {
   const [replyModal, serReplyModal] = React.useState(false);
+  const [replymessage, setReplyMessage] = React.useState<string>("");
+  const dispatch = useDispatch();
+  const { data } = useSelector((store: RootState) => store.activeVideo);
+
   const replyHandler = () => {
     serReplyModal(!replyModal);
+  };
+
+  const replySubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    commentOnVideo(data._id, replymessage, dispatch, comment._id);
+  };
+
+  const getReplyHandler = () => {
+    getCommentReplies(data._id, comment._id, dispatch);
   };
 
   return (
@@ -45,26 +66,41 @@ const Comment = ({ comment }: Prop) => {
         </div>
 
         {/* {replyModal && ( */}
-        <div
+        <form
+          onSubmit={replySubmitHandler}
           className={` w-full ${
             replyModal ? "h-full" : "h-0"
           } animation my-2  overflow-hidden  `}
         >
           <input
+            name="reply"
+            value={replymessage}
+            onChange={(e) => setReplyMessage(e.target.value)}
             type="text"
             placeholder="reply"
             className="border border-bg-tertiary bg-bg-primary rounded-lg py-1 w-full outline-none px-3"
           />
-        </div>
-        {/* )} */}
-
-        <button className=" text-blue-500 flex items-center mt-1 gap-x-1">
-          <AiFillCaretDown className="text-xl mt-1" /> view
-          {comment.replies.length} replies
-        </button>
+        </form>
+        {comment.replyCount > 0 && (
+          <div className=" ">
+            {comment.replies ? (
+              comment.replies.map((reply: Comment) => {
+                return <CommentBox key={reply._id} comment={reply} />;
+              })
+            ) : (
+              <button
+                onClick={getReplyHandler}
+                className=" text-blue-500 flex items-center mt-1 gap-x-1"
+              >
+                <AiFillCaretDown className="text-xl mt-1" /> view
+                {comment.replyCount} replies
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default Comment;
+export default CommentBox;

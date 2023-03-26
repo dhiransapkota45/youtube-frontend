@@ -1,10 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/rootReducers";
-import Comment from "./Comment";
+import Comment from "./CommentBox";
 
 type Props = {
   onsubmithandler: (e: React.FormEvent<HTMLFormElement>) => void;
+  comment: string;
+  setComment: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export type Comment = {
@@ -17,11 +19,12 @@ export type Comment = {
   comment: string;
   likes: any;
   dislikes: any;
-  replies: any;
+  replies: any[];
   parentComment: null | number;
+  replyCount: number;
 };
 
-const CommentSection = ({ onsubmithandler }: Props) => {
+const CommentSection = ({ onsubmithandler, comment, setComment }: Props) => {
   const { data } = useSelector((store: RootState) => store.activeVideo);
   const { comments } = data;
   console.log(comments);
@@ -30,8 +33,10 @@ const CommentSection = ({ onsubmithandler }: Props) => {
     <div>
       <form onSubmit={onsubmithandler}>
         <input
+          onChange={(e) => setComment(e.target.value)}
           type="text"
-          name=""
+          value={comment}
+          name="comment"
           id=""
           placeholder="comment here"
           className="w-full  outline-none rounded-full my-1 py-2 px-4 bg-bg-secondary"

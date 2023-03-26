@@ -21,6 +21,8 @@ const Navbar = () => {
   const { error, loading, user } = useSelector(
     (store: RootState) => store.activeUser
   );
+  console.log(user);
+
   const darkmodeHandler = () => {
     dispatch(setMode());
   };
@@ -31,7 +33,6 @@ const Navbar = () => {
 
   useEffect(() => {
     if (Cookies.get("accessToken")) {
-      console.log("got it");
       dispatch(activeUser());
     }
   }, []);

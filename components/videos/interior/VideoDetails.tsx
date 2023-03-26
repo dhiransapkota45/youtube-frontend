@@ -1,5 +1,9 @@
-import React, { useEffect } from "react";
-import { activeVideo, likeOneVideo } from "../../../api/videos/activeVideo";
+import React, { useEffect, useState } from "react";
+import {
+  activeVideo,
+  commentOnVideo,
+  likeOneVideo,
+} from "../../../api/videos/activeVideo";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../../redux/store";
@@ -16,6 +20,7 @@ import {
 } from "react-icons/ai";
 import CommentSection from "./CommentSection";
 
+//  --------------------------------------------
 const VideoDetails = () => {
   const { loading, data, error } = useSelector(
     (store: RootState) => store.activeVideo
@@ -26,19 +31,32 @@ const VideoDetails = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const newdate = new Date(data.createdAt).toLocaleDateString();
+  const [comment, setComment] = useState<string>("");
 
   const onActionHandler = (action: string) => {
     if (!Cookies.get("accessToken")) {
       toaster("error", `Please login to ${action} this video`);
     } else {
-      console.log("liked");
-      toaster("success", "implement logic for like");
       if (action === "like") {
         likeOneVideo(data._id, activeuser.user._id, dispatch);
+        return;
+      }
+      if (action === "subscribe") {
+        toaster("success", "implement logic for subscribe");
+        return;
+      }
+      if (action === "comment") {
+        commentOnVideo(data._id, comment, dispatch);
+        toaster("success", "implement logic for comment");
+        return;
       }
     }
   };
-
+  // {
+  //   videoid: data._id,
+  //   comment: activeuser.user._id,
+  //   dispatch,
+  // }
   const onsubmithandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onActionHandler("comment");
@@ -89,14 +107,13 @@ const VideoDetails = () => {
                 onClick={() => onActionHandler("like")}
                 className=" flex gap-3 py-2 px-4"
               >
-                {(data.likes?.includes(activeuser.user?._id)) ? (
+                {data.isliked ? (
                   <AiFillLike className="text-2xl" />
                 ) : (
                   <AiOutlineLike className="text-2xl" />
                 )}
-                {/* <AiOutlineLike className="text-2xl" /> */}
 
-                <span>{data.likes?.length}</span>
+                <span>{data.likes}</span>
               </button>
 
               <div className=" divide-x border border-bg-primary"></div>
@@ -106,7 +123,7 @@ const VideoDetails = () => {
                 className=" flex gap-3 py-2 px-4"
               >
                 <AiOutlineDislike className="text-2xl" />
-                <span>{data.dislikes?.length}</span>
+                <span>{data.dislikes}</span>
               </button>
             </div>
           </div>
@@ -123,7 +140,11 @@ const VideoDetails = () => {
           </div>
 
           <div>
-            <CommentSection onsubmithandler={onsubmithandler} />
+            <CommentSection
+              comment={comment}
+              setComment={setComment}
+              onsubmithandler={onsubmithandler}
+            />
           </div>
         </div>
       )}

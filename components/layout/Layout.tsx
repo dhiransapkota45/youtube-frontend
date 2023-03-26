@@ -15,12 +15,9 @@ const Layout = ({ children }: Props) => {
   );
 
   const { pathname } = useRouter();
-  console.log(pathname);
 
   const routesToHideNavbar = ["/login", "/signup"];
   const routesToHideSidebar = [...routesToHideNavbar, `/video/[videoid]`];
-
-  console.log(routesToHideNavbar.includes(pathname));
 
   return (
     <div

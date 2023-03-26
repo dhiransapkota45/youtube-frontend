@@ -18,7 +18,6 @@ const SubscribeStatus = ({ children }: Prop) => {
     }
   }, [router.pathname]);
 
-  console.log("cookie", Cookies.get("accessToken"));
 
   const { pathname } = useRouter();
   const routes = [
