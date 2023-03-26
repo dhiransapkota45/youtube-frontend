@@ -23,18 +23,20 @@ type Prop = {
 
 // --------------------------------------------
 const CommentBox = ({ comment }: Prop) => {
-  const [replyModal, serReplyModal] = React.useState(false);
+  const [replyModal, setReplyModal] = React.useState(false);
   const [replymessage, setReplyMessage] = React.useState<string>("");
   const dispatch = useDispatch();
   const { data } = useSelector((store: RootState) => store.activeVideo);
 
   const replyHandler = () => {
-    serReplyModal(!replyModal);
+    setReplyModal(!replyModal);
   };
 
   const replySubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     commentOnVideo(data._id, replymessage, dispatch, comment._id);
+    setReplyMessage("");
+    setReplyModal(false);
   };
 
   const getReplyHandler = () => {
@@ -45,14 +47,14 @@ const CommentBox = ({ comment }: Prop) => {
     <div className=" w-full px-6 py-3 bg-bg-secondary flex ">
       <div className=" w-10 h-10 mr-3 rounded-full overflow-hidden relative">
         <Image
-          src={`${process.env.BACKEND_URL}/images/${comment.commenter.profile_pic}`}
+          src={`${process.env.BACKEND_URL}/images/${comment.commenter?.profile_pic}`}
           alt="commenter_profile"
           fill
         />
       </div>
 
       <div className=" flex-1 flex flex-col">
-        <div className="">{comment.commenter.username}</div>
+        <div className="">{comment.commenter?.username}</div>
         <div className="">{comment.comment}</div>
         <div className="flex gap-x-3  items-center relative">
           <button className=" ">

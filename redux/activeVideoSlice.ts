@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { stat } from "fs";
 import { activeVideo } from "../api/videos/activeVideo";
 
 interface IndivisualVideo {
@@ -17,6 +18,7 @@ interface IndivisualVideo {
     subscribers: any;
   };
   isliked: boolean;
+  isSubscribed: boolean;
   createdAt: Date;
 }
 interface IinitialState {
@@ -24,6 +26,8 @@ interface IinitialState {
   error: string | null | any;
   data: IndivisualVideo;
 }
+
+// --------------------------------------------
 const initialState: IinitialState = {
   loading: true,
   error: null,
@@ -39,8 +43,6 @@ const activeVideoSlice = createSlice({
       if (msg === "liked") {
         state.data.likes.push(activeuser);
       } else if (msg === "unliked") {
-        console.log("i got fired");
-
         const index = state.data.likes.indexOf(activeuser);
         if (index > -1) {
           state.data.likes.splice(index, 1);
@@ -50,10 +52,18 @@ const activeVideoSlice = createSlice({
       }
     },
     addcomment: (state, { payload }) => {
-      state.data.comments.unshift(payload);
+      console.log(payload);
+      if (payload.parentComment === null) {
+        state.data.comments.unshift(payload.newcomment);
+      } else {
+
+        state.data.comments
+          .find((comment: any) => payload.parentComment === comment._id)
+          .replies.unshift(payload.newcomment);
+      }
     },
     showReplies: (state, { payload }) => {
-      console.log(payload);
+
       state.data.comments.find(
         (comment: any) => payload.commentid === comment._id
       ).replies = payload.replies;

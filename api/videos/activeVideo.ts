@@ -1,7 +1,11 @@
 import { api_instance } from "../instance";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { toaster } from "../../components/common/custom/toaster";
-import { addcomment, likevideo, showReplies } from "../../redux/activeVideoSlice";
+import {
+  addcomment,
+  likevideo,
+  showReplies,
+} from "../../redux/activeVideoSlice";
 
 export const activeVideo = createAsyncThunk(
   "video/activeVideo",
@@ -44,12 +48,14 @@ export const commentOnVideo = async (
       parentComment,
     });
     console.log(response);
-    if (parentComment === null) {
-      dispatch(addcomment(response.data.newcomment));
-    } else {
-      // dispatch(replycomment())
-      console.log("reply comment has been created");
-    }
+    // if (parentComment === null) {
+    //   dispatch(addcomment(response.data.newcomment));
+    // } else {
+    //   // dispatch(replycomment())
+    //   console.log("reply comment has been created");
+    // }
+    const payload = { newcomment: response.data.newcomment, parentComment };
+    dispatch(addcomment(payload));
   } catch (error: any) {
     toaster("error", error.response.data.message);
   }
@@ -66,11 +72,13 @@ export const getCommentReplies = async (
       commentid,
     });
     console.log(response);
-    dispatch(showReplies({ commentid, replies: response.data.replies }))
+    dispatch(showReplies({  replies: response.data.replies, commentid }));
   } catch (error: any) {
     toaster("error", error.response.data.message);
   }
 };
+
+// export const subscribe = async (videoid, dispatch) => {
 
 // export const commentOnVideo = createAsyncThunk(
 //   "video/commentOnVideo",

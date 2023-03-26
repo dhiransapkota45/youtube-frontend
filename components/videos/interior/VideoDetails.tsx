@@ -52,11 +52,7 @@ const VideoDetails = () => {
       }
     }
   };
-  // {
-  //   videoid: data._id,
-  //   comment: activeuser.user._id,
-  //   dispatch,
-  // }
+
   const onsubmithandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onActionHandler("comment");
@@ -99,7 +95,7 @@ const VideoDetails = () => {
               onClick={() => onActionHandler("subscribe")}
               className=" bg-red-500 rounded-3xl font-semibold text-white px-6 py-2"
             >
-              Subscribe
+              {data.isSubscribed ? "UnSubscribe" : "Subscribe"}
             </button>
 
             <div className=" ml-8 bg-bg-secondary rounded-xl flex">
