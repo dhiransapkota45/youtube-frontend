@@ -11,3 +11,16 @@ export const fetchuser = createAsyncThunk("user/fetchuser", async () => {
     return error;
   }
 });
+
+export const channeldetails = async (channelid: any, setChannel: any) => {
+  try {
+    const response = await api_instance.post(`/api/users/getchannel`, {
+      username: channelid,
+    });
+    setChannel(response.data.channeldetails);
+    // return response.data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};

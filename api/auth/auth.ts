@@ -33,7 +33,7 @@ export const signup = async (user: UserdetailsSignup, router: any) => {
     formData.append("password", user.password);
     formData.append("image", user.profile_pic as Blob);
     const response = await api_instance.post("/api/users/signup", formData);
-    console.log(response);
+
     Cookies.set("accessToken", response.data.accessToken);
     Cookies.set("refreshToken", response.data.refreshToken);
     router.push("/");

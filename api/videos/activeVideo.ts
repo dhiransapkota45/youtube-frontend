@@ -5,6 +5,7 @@ import {
   addcomment,
   likevideo,
   showReplies,
+  subscribeHandler,
 } from "../../redux/activeVideoSlice";
 
 export const activeVideo = createAsyncThunk(
@@ -47,13 +48,6 @@ export const commentOnVideo = async (
       videoid,
       parentComment,
     });
-    console.log(response);
-    // if (parentComment === null) {
-    //   dispatch(addcomment(response.data.newcomment));
-    // } else {
-    //   // dispatch(replycomment())
-    //   console.log("reply comment has been created");
-    // }
     const payload = { newcomment: response.data.newcomment, parentComment };
     dispatch(addcomment(payload));
   } catch (error: any) {
@@ -72,29 +66,46 @@ export const getCommentReplies = async (
       commentid,
     });
     console.log(response);
-    dispatch(showReplies({  replies: response.data.replies, commentid }));
+    dispatch(showReplies({ replies: response.data.replies, commentid }));
   } catch (error: any) {
     toaster("error", error.response.data.message);
   }
 };
 
-// export const subscribe = async (videoid, dispatch) => {
+export const subscribe = async (
+  channelid: number,
+  setSubsLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  dispatch: any
+) => {
+  try {
+    const response = await api_instance.post(`/api/users/subscribe`, {
+      _id: channelid,
+    });
+    setSubsLoading(false);
 
-// export const commentOnVideo = createAsyncThunk(
-//   "video/commentOnVideo",
-//   async () => {
-//     console.log("i got fired");
+    dispatch(subscribeHandler("subscribed"));
+    console.log(response);
+  } catch (error: any) {
+    setSubsLoading(false);
+    toaster("error", error.response.data.message);
+  }
+};
 
-//     try {
-//       // const response = await api_instance.post(`/api/comments/createcomment`, {
-//       //   comment,
-//       //   videoid,
-//       // });
-//       // console.log(response);
-//       // dispatch(addcomment(response.data.newcomment));
-//     } catch (error: any) {
-//       toaster("error", error.response.data.message);
-//     }
-//   }
-// );
-// {videoid, comment, dispatch}
+export const unsubscribe = async (
+  channelid: number,
+  setSubsLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  dispatch: any
+) => {
+  try {
+    const response = await api_instance.post(`/api/users/unsubscribe`, {
+      _id: channelid,
+    });
+    setSubsLoading(false);
+
+    dispatch(subscribeHandler("unsubscribed"));
+    console.log(response);
+  } catch (error: any) {
+    setSubsLoading(false);
+    toaster("error", error.response.data.message);
+  }
+};

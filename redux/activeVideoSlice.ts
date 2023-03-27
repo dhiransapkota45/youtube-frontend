@@ -56,17 +56,24 @@ const activeVideoSlice = createSlice({
       if (payload.parentComment === null) {
         state.data.comments.unshift(payload.newcomment);
       } else {
-
         state.data.comments
           .find((comment: any) => payload.parentComment === comment._id)
           .replies.unshift(payload.newcomment);
       }
     },
     showReplies: (state, { payload }) => {
-
       state.data.comments.find(
         (comment: any) => payload.commentid === comment._id
       ).replies = payload.replies;
+    },
+    subscribeHandler: (state, { payload }) => {
+      if (payload === "subscribed") {
+        state.data.isSubscribed = true;
+      } else if (payload === "unsubscribed") {
+        state.data.isSubscribed = false;
+      } else {
+        state;
+      }
     },
   },
   extraReducers: (builder) => {
@@ -84,7 +91,7 @@ const activeVideoSlice = createSlice({
   },
 });
 
-export const { likevideo, addcomment, showReplies } = activeVideoSlice.actions;
+export const { likevideo, addcomment, showReplies, subscribeHandler } = activeVideoSlice.actions;
 export default activeVideoSlice.reducer;
 
 // {

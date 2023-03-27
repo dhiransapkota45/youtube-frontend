@@ -3,6 +3,8 @@ import {
   activeVideo,
   commentOnVideo,
   likeOneVideo,
+  subscribe,
+  unsubscribe,
 } from "../../../api/videos/activeVideo";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,6 +28,7 @@ const VideoDetails = () => {
     (store: RootState) => store.activeVideo
   );
 
+  const [subsloading, setSubsLoading] = useState<boolean>(false);
   const activeuser = useSelector((store: RootState) => store.activeUser);
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
@@ -42,7 +45,15 @@ const VideoDetails = () => {
         return;
       }
       if (action === "subscribe") {
+        setSubsLoading(true);
         toaster("success", "implement logic for subscribe");
+        subscribe(data.uploader?._id, setSubsLoading, dispatch);
+        return;
+      }
+      if (action === "unsubscribe") {
+        setSubsLoading(true);
+        toaster("success", "implement logic for subscribe");
+        unsubscribe(data.uploader?._id, setSubsLoading, dispatch);
         return;
       }
       if (action === "comment") {
@@ -92,10 +103,18 @@ const VideoDetails = () => {
             </div>
 
             <button
-              onClick={() => onActionHandler("subscribe")}
-              className=" bg-red-500 rounded-3xl font-semibold text-white px-6 py-2"
+              onClick={() =>
+                onActionHandler(data.isSubscribed ? "unsubscribe" : "subscribe")
+              }
+              className={`${
+                data.isSubscribed ? "bg-bg-tertiary " : "bg-red-500"
+              }  w-40 rounded-3xl font-semibold text-white px-6 duration-300 py-2`}
             >
-              {data.isSubscribed ? "UnSubscribe" : "Subscribe"}
+              {subsloading
+                ? "loading"
+                : data.isSubscribed
+                ? "UnSubscribe"
+                : "Subscribe"}
             </button>
 
             <div className=" ml-8 bg-bg-secondary rounded-xl flex">
