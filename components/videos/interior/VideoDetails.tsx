@@ -21,6 +21,7 @@ import {
   AiOutlineLike,
 } from "react-icons/ai";
 import CommentSection from "./CommentSection";
+import Link from "next/link";
 
 //  --------------------------------------------
 const VideoDetails = () => {
@@ -85,13 +86,13 @@ const VideoDetails = () => {
           </div>
 
           <div className=" flex items-center">
-            <div className=" w-12 h-12 mr-4 rounded-full overflow-hidden relative">
+            <Link href={`/channel/${data.uploader.username}`} className=" w-12 h-12 mr-4 rounded-full overflow-hidden relative">
               <Image
                 src={`${process.env.BACKEND_URL}/images/${data.uploader?.profile_pic}`}
                 alt="uploader"
                 fill
               />
-            </div>
+            </Link>
 
             <div className="flex flex-col mr-8 ">
               <div className=" font-semibold text-text-primary text-xl">

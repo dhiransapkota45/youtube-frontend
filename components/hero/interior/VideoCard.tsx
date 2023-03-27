@@ -4,10 +4,13 @@ import { video } from "../../../redux/videoSlice";
 import { SlOptionsVertical } from "react-icons/sl";
 import Modal from "../../common/Modal";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 type Prop = {
   video: video;
 };
+
+//yesma profile ma thichda prpofule ma janaparxa
 
 // need to show date also in the VideoCard
 const VideoCard = ({ video }: Prop) => {
@@ -28,13 +31,21 @@ const VideoCard = ({ video }: Prop) => {
         />
       </div>
       <div className=" flex px-2 my-2 relative">
-        <div className=" w-12 h-12 rounded-full mr-4 overflow-hidden relative">
-          <Image
-            src={`${process.env.BACKEND_URL}/images/${uploader?.profile_pic}`}
-            alt="profile_pic"
-            fill
-          />
-        </div>
+        {uploader && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              router.push(`/channel/${uploader?.username}`);
+            }}
+            className=" w-12 h-12 rounded-full mr-4 overflow-hidden relative"
+          >
+            <Image
+              src={`${process.env.BACKEND_URL}/images/${uploader?.profile_pic}`}
+              alt="profile_pic"
+              fill
+            />
+          </button>
+        )}
 
         <div>
           <div className=" font-bold">{title}</div>

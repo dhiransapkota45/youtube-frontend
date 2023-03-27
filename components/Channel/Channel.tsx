@@ -3,7 +3,16 @@ import Banner from "./interior/Banner";
 
 import { channeldetails } from "../../api/user/user";
 import { useRouter } from "next/router";
-import VideoCard from "../hero/interior/VideoCard";
+import ChannelVideoCard from "./interior/ChannelVideoCard";
+
+export type channelVideoType = {
+  _id: string;
+  title: string;
+  likes: any;
+  dislikes: any;
+  views: number;
+  thumbnail: string;
+};
 
 export type channelType = {
   _id: string;
@@ -15,14 +24,7 @@ export type channelType = {
   subscriptionLength: number;
   subscriptions: any;
   subscribers: any;
-  videos: {
-    _id: string;
-    title: string;
-    likes: any;
-    dislikes: any;
-    views: number;
-    thumbnail: string;
-  };
+  videos: channelVideoType[];
 };
 
 const routes = ["vidoes", "subscriptions", "about"];
@@ -41,7 +43,7 @@ const Channel = () => {
         <Banner channel={channel} />
       </div>
 
-      <div className=" mt-20 flex gap-x-8 text-lg ml-3  font-medium capitalize">
+      <div className=" mt-20 mb-5 flex gap-x-8 text-lg ml-3  font-medium capitalize">
         {routes.map((route) => {
           return (
             <div key={route} className="relative ">
@@ -65,14 +67,53 @@ const Channel = () => {
         })}
       </div>
 
-      {
-        activeroute === "vidoes" && (
-          <div>
-            {/* <VideoCard video={} /> */}
-          </div>
-        )
+      {activeroute === "vidoes" && (
+        <div className=" grid grid-cols-3 gap-4 my-2">
+          {channel.videos?.map((video) => {
+            return (
+              <div key={video._id}>
+                <ChannelVideoCard video={video} />
+              </div>
+            );
+          })}
+        </div>
+      )}
 
-      }
+      {activeroute === "subscriptions" && (
+        <div>
+          {channel.subscriptions.length === 0 ? (
+            <div>No subscription</div>
+          ) : (
+            <div></div>
+          )}
+        </div>
+      )}
+
+      {activeroute === "about" && (
+        <div>
+          <div className="text-lg font-medium">About</div>
+          <div className="text-gray-800 font-semibold dark:text-gray-400">
+            Full Name:
+            <span className=" text-gray-700 font-medium capitalize ml-3 ">
+              {channel.fullname}
+            </span>
+          </div>
+          <div className="text-gray-800 font-semibold dark:text-gray-400">
+            Username:
+            <span className=" text-gray-700 font-medium capitalize ml-3 ">
+              {channel.username}
+            </span>
+          </div>
+          <div className="text-lg font-medium mt-6">Description</div>
+
+          <div className="text-gray-500 dark:text-gray-400">
+            {channel.description}
+          </div>
+
+          <div className="text-lg font-medium mt-6">Social Handles</div>
+          <div className="text-gray-500">No social handles provided</div>
+        </div>
+      )}
     </div>
   );
 };

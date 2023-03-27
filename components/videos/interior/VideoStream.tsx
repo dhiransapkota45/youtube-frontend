@@ -5,7 +5,7 @@ const VideoStream = () => {
   console.log(router);
 
   return (
-    <video className="w-full" controls>
+    <video className="w-full" controls autoPlay>
       <source
         src={`${process.env.BACKEND_URL}/api/videos/streamvideo/${router.query.videoid}`}
         type="video/mp4"

@@ -24,13 +24,17 @@ const Subscriptions = () => {
   }, []);
   return (
     <div className=" grid grid-cols-4 p-4">
-      {subscriotionDetails.map((subscriptionDetail) => {
-        return (
-          <div key={subscriptionDetail._id}>
-            <ChannelBanner subscriptionDetail={subscriptionDetail} />
-          </div>
-        );
-      })}
+      {subscriotionDetails.length === 0 ? (
+        <div>No subscriptions</div>
+      ) : (
+        subscriotionDetails.map((subscriptionDetail) => {
+          return (
+            <div key={subscriptionDetail._id}>
+              <ChannelBanner subscriptionDetail={subscriptionDetail} />
+            </div>
+          );
+        })
+      )}
     </div>
   );
 };

@@ -5,13 +5,14 @@ export interface video {
   _id: string;
   thumbnail: string;
   title: string;
-  uploader: {
+  uploader?: {
     _id: string;
     fullname: string;
     profile_pic: string;
+    username: string;
   };
   views: number;
-  createdAt: Date;
+  createdAt?: Date;
 }
 
 interface VideoState {
