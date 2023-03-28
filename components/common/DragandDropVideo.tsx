@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { FiUpload } from "react-icons/fi";
+import { Data } from "../upload/UploadVideo";
 
-const DragandDropVideo = () => {
+type Prop = {
+  data: Data;
+  setData: React.Dispatch<React.SetStateAction<Data>>;
+};
+const DragandDropVideo = ({ data, setData }: Prop) => {
   const [video, setVideo] = useState<any>(null);
   const [videoLoading, setVideoLoading] = useState<boolean>(false);
   const [percent, setPercent] = useState<number>(0);
@@ -17,6 +22,7 @@ const DragandDropVideo = () => {
     e.preventDefault();
     const file = e.target.files?.[0] || e.dataTransfer.files[0];
     // const file = e.dataTransfer.files[0];
+    setData({ ...data, video: file });
 
     if (file) {
       const reader: FileReader = new FileReader();
@@ -52,7 +58,7 @@ const DragandDropVideo = () => {
       <div className="">
         <label htmlFor="video" className=" ">
           <div className="bg-gray-500 text-center font-semibold text-white rounded-md w-60 p-2 cursor-pointer h-full">
-              Upload a Video
+            Upload a Video
           </div>
         </label>
         <input
@@ -84,7 +90,11 @@ const DragandDropVideo = () => {
                 controls
               />
             ) : (
-              <div className={`${dargActive ? "bg-gray-200" : ""} animation w-full h-80 border-2 border-dotted rounded-xl overflow-hidden flex justify-center items-center font-semibold text-gray-600`}>
+              <div
+                className={`${
+                  dargActive ? "bg-gray-200" : ""
+                } animation w-full h-80 border-2 border-dotted rounded-xl overflow-hidden flex justify-center items-center font-semibold text-gray-600`}
+              >
                 Drag and Drop Video
               </div>
             )}

@@ -1,23 +1,64 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { createVideo } from "../../api/videos/videos";
 import DragandDropVideo from "../common/DragandDropVideo";
+
+export type Data = {
+  title: string;
+  description: string;
+  thumbnail: File | null;
+  video: File | null;
+};
 
 const UploadVideo = () => {
   const [thumbnail, setThumbnail] = useState<File | null | any>(null);
+  const [disable, setDisable] = useState<boolean>(true);
+
+  const [data, setData] = useState<Data>({
+    title: "",
+    description: "",
+    thumbnail: null,
+    video: null,
+  });
+
+  const disableSubmit = () => {
+    if (
+      data.title === "" ||
+      data.description === "" ||
+      data.thumbnail === null ||
+      data.video === null
+    ) {
+      // return true;
+      setDisable(true);
+    } else {
+      // return false;
+      setDisable(false);
+    }
+  };
+
   const onThumbHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     //read the file
     const file = e.target.files![0];
+    setData({ ...data, thumbnail: file });
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
-      console.log(reader.result);
       setThumbnail(reader.result);
     };
   };
 
+  const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    createVideo(data)
+  };
+
+  useEffect(() => {
+    disableSubmit();
+  }, [data]);
+
   return (
-    <div>
+    <form onSubmit={onSubmitHandler}>
       <div className=" max-w-2xl mx-auto">
-        <DragandDropVideo />
+        <DragandDropVideo data={data} setData={setData} />
       </div>
 
       <div className=" w-full mb-10">
@@ -27,6 +68,9 @@ const UploadVideo = () => {
           </div>
           <div className=" ">
             <input
+              name="title"
+              value={data.title}
+              onChange={(e) => setData({ ...data, title: e.target.value })}
               type="text"
               placeholder="Title for video"
               className=" p-2 bg-bg-primary  w-full border-2 placeholder:font-semibold focus:border-blue-500 outline-none rounded-lg duration-200 "
@@ -36,7 +80,11 @@ const UploadVideo = () => {
           <div className="">
             <textarea
               placeholder=" Description for video"
-              name=""
+              name="description"
+              value={data.description}
+              onChange={(e) =>
+                setData({ ...data, description: e.target.value })
+              }
               id=""
               cols={30}
               rows={5}
@@ -65,13 +113,19 @@ const UploadVideo = () => {
           </div>
 
           <div>
-            <button className=" p-2 bg-red-500 rounded text-white my-4 font-semibold px-10">
+            <button
+              type="submit"
+              disabled={disable}
+              className={`p-2 ${
+                disable ? "bg-red-200" : "bg-red-500"
+              }  rounded text-white my-4 font-semibold px-10`}
+            >
               Upload
             </button>
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 

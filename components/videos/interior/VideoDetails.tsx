@@ -47,19 +47,19 @@ const VideoDetails = () => {
       }
       if (action === "subscribe") {
         setSubsLoading(true);
-        toaster("success", "implement logic for subscribe");
+        // toaster("success", "implement logic for subscribe");
         subscribe(data.uploader?._id, setSubsLoading, dispatch);
         return;
       }
       if (action === "unsubscribe") {
         setSubsLoading(true);
-        toaster("success", "implement logic for subscribe");
+        // toaster("success", "implement logic for subscribe");
         unsubscribe(data.uploader?._id, setSubsLoading, dispatch);
         return;
       }
       if (action === "comment") {
         commentOnVideo(data._id, comment, dispatch);
-        toaster("success", "implement logic for comment");
+        // toaster("success", "implement logic for comment");
         return;
       }
     }
@@ -86,7 +86,10 @@ const VideoDetails = () => {
           </div>
 
           <div className=" flex items-center">
-            <Link href={`/channel/${data.uploader.username}`} className=" w-12 h-12 mr-4 rounded-full overflow-hidden relative">
+            <Link
+              href={`/channel/${data?.uploader?.username}`}
+              className=" w-12 h-12 mr-4 rounded-full overflow-hidden relative"
+            >
               <Image
                 src={`${process.env.BACKEND_URL}/images/${data.uploader?.profile_pic}`}
                 alt="uploader"

@@ -7,7 +7,10 @@ export const getSubscriptions = async (setSubscriotionDetails) => {
     setSubscriotionDetails(res.data.subscribedChannels);
   } catch (error) {
     console.log(error);
-    // console.log(error?.response?.data?.message);
+    if (error?.response?.status) {
+      return;
+    }
+
     toaster("error", error?.response?.data?.message);
   }
 };
