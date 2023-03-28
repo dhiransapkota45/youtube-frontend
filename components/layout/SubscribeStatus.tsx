@@ -26,6 +26,7 @@ const SubscribeStatus = ({ children }: Prop) => {
     "/likedvideos",
     "/dislikedvideos",
     "/yourvideos",
+    "/createvideo",
   ];
   return (
     <div>
