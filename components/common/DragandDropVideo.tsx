@@ -6,8 +6,17 @@ const DragandDropVideo = () => {
   const [videoLoading, setVideoLoading] = useState<boolean>(false);
   const [percent, setPercent] = useState<number>(0);
 
-  const onFileChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+  const [dargActive, setDragActive] = useState<any>(null);
+
+  const onFileChangeHandler = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.DragEvent<HTMLDivElement>
+      | any
+  ) => {
+    e.preventDefault();
+    const file = e.target.files?.[0] || e.dataTransfer.files[0];
+    // const file = e.dataTransfer.files[0];
 
     if (file) {
       const reader: FileReader = new FileReader();
@@ -27,12 +36,23 @@ const DragandDropVideo = () => {
       reader.readAsDataURL(file);
     }
   };
+
+  const onDragOverHandler = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setDragActive(true);
+  };
+
+  const onDragLeaveHandler = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setDragActive(false);
+  };
+
   return (
-    <div className=" flex flex-col items-center gap-y-4 my-10">
+    <div className=" flex flex-col  gap-y-4 my-10">
       <div className="">
         <label htmlFor="video" className=" ">
-          <div className="bg-red-500 text-center font-semibold text-white rounded-md w-60 p-2 cursor-pointer h-full">
-            Upload a Video
+          <div className="bg-gray-500 text-center font-semibold text-white rounded-md w-60 p-2 cursor-pointer h-full">
+              Upload a Video
           </div>
         </label>
         <input
@@ -43,7 +63,13 @@ const DragandDropVideo = () => {
         />
       </div>
 
-      <div className="w-full h-80 overflow-hidden">
+      <div
+        onDragOver={onDragOverHandler}
+        onDragLeave={onDragLeaveHandler}
+        // onDragEnter={dragEnterHandler}
+        onDrop={onFileChangeHandler}
+        className="w-full  h-80 overflow-hidden"
+      >
         {videoLoading ? (
           <div className=" w-full h-full flex flex-col justify-center items-center ">
             <div className=" spinner"></div>
@@ -58,7 +84,7 @@ const DragandDropVideo = () => {
                 controls
               />
             ) : (
-              <div className=" w-full h-80 border-2 border-dotted rounded-xl overflow-hidden flex justify-center items-center">
+              <div className={`${dargActive ? "bg-gray-200" : ""} animation w-full h-80 border-2 border-dotted rounded-xl overflow-hidden flex justify-center items-center font-semibold text-gray-600`}>
                 Drag and Drop Video
               </div>
             )}
