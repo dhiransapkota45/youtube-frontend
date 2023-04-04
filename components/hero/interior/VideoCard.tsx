@@ -21,7 +21,7 @@ const VideoCard = ({ video }: Prop) => {
   return (
     <div
       onClick={() => router.push(`/video/${_id}`)}
-      className=" hover:scale-105 hover:shadow-2xl animation rounded-lg shadow cursor-pointer "
+      className=" hover:scale-105 hover:shadow-2xl rounded-lg shadow cursor-pointer "
     >
       <div className="w-full h-60 relative ">
         <Image
@@ -58,7 +58,7 @@ const VideoCard = ({ video }: Prop) => {
             e.stopPropagation();
             setOpenModel(!openModal);
           }}
-          className=" hover:bg-bg-secondary animation z-30 p-2 rounded-full absolute top-2 right-3"
+          className=" hover:bg-bg-secondary  z-30 p-2 rounded-full absolute top-2 right-3"
         >
           <SlOptionsVertical />
           <div className=" absolute ">

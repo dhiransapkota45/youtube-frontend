@@ -23,6 +23,7 @@ import {
 import CommentSection from "./CommentSection";
 import Link from "next/link";
 
+
 //  --------------------------------------------
 const VideoDetails = () => {
   const { loading, data, error } = useSelector(
@@ -112,7 +113,7 @@ const VideoDetails = () => {
               }
               className={`${
                 data.isSubscribed ? "bg-bg-tertiary " : "bg-red-500"
-              }  w-40 rounded-3xl font-semibold text-white px-6 duration-300 py-2`}
+              }  w-40 rounded-3xl font-semibold text-white px-6  py-2`}
             >
               {subsloading
                 ? "loading"

@@ -12,10 +12,10 @@ const Hero = () => {
 
   return (
     <>
-      <div className=" grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      <div className=" grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
         {loading
           ? arr.map((item) => <Loader key={item} />)
-          :   videos.map((video) => {
+          : videos.map((video) => {
               return <VideoCard key={video._id} video={video} />;
             })}
       </div>

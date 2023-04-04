@@ -9,7 +9,7 @@ type Prop = {
 
 const ChannelBanner = ({ subscriptionDetail }: Prop) => {
   return (
-    <div className=" w-full  shadow-md hover:shadow-xl  shadow-bg-secondary cursor-pointer duration-300 p-4 bg-bg-secondary">
+    <div className=" w-full  shadow-md hover:shadow-xl  shadow-bg-secondary cursor-pointer  p-4 bg-bg-secondary">
       <Link
         className=" w-full h-full"
         href={`/channel/${subscriptionDetail?.username}`}

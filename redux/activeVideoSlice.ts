@@ -18,6 +18,7 @@ interface IndivisualVideo {
     subscribers: any;
   };
   isliked: boolean;
+  isdisliked: boolean;
   isSubscribed: boolean;
   createdAt: Date;
 }
@@ -41,15 +42,23 @@ const activeVideoSlice = createSlice({
     likevideo: (state, { payload }) => {
       const { msg, activeuser } = payload;
       if (msg === "liked") {
-        state.data.likes.push(activeuser);
+        state.data.isliked = true;
+        state.data.isdisliked = false;
       } else if (msg === "unliked") {
-        const index = state.data.likes.indexOf(activeuser);
-        if (index > -1) {
-          state.data.likes.splice(index, 1);
-        }
+        state.data.isliked = false;
       } else {
         state;
       }
+      //  else if (msg === "unliked") {
+      //   const index = state.data.likes.indexOf(activeuser);
+      //   if (index > -1) {
+      //     state.data.likes.splice(index, 1);
+      //   }
+      // } else {
+      //   state;
+      // }
+
+      console.log("i reached here");
     },
     addcomment: (state, { payload }) => {
       console.log(payload);
@@ -91,7 +100,8 @@ const activeVideoSlice = createSlice({
   },
 });
 
-export const { likevideo, addcomment, showReplies, subscribeHandler } = activeVideoSlice.actions;
+export const { likevideo, addcomment, showReplies, subscribeHandler } =
+  activeVideoSlice.actions;
 export default activeVideoSlice.reducer;
 
 // {

@@ -28,11 +28,13 @@ export const likeOneVideo = async (
     const response = await api_instance.post(
       `/api/videos/likevideo/${videoid}`
     );
-    console.log(response);
+    console.log(response.data.msg, activeuser);
 
     dispatch(likevideo({ msg: response.data.msg, activeuser }));
   } catch (error: any) {
-    toaster("error", error.response.data.message);
+    console.log("error");
+
+    // toaster("error", error.response.data.message);
   }
 };
 

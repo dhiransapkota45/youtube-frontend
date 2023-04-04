@@ -23,7 +23,7 @@ const Layout = ({ children }: Props) => {
     <div
       className={`h-screen flex flex-col  ${
         mode && "dark"
-      } bg-bg-primary text-text-primary duration-300 `}
+      } bg-bg-primary text-text-primary  `}
     >
       {!routesToHideNavbar.includes(pathname) && (
         <div className="sticky top-0">
@@ -36,13 +36,13 @@ const Layout = ({ children }: Props) => {
           <div
             className={`bg-primary  ${
               sidebarCollapsed ? "basis-16" : "basis-80"
-            }  overflow-auto animation`}
+            }  overflow-auto animation `}
           >
             <SideBar />
           </div>
         )}
 
-        <div className=" flex-1 overflow-auto duration-300 p-4 ">
+        <div className=" flex-1 overflow-auto  p-4 ">
           <SubscribeStatus>
             <div>{children}</div>
           </SubscribeStatus>

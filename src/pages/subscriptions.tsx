@@ -23,7 +23,7 @@ const Subscriptions = () => {
     getSubscriptions(setSubscriotionDetails);
   }, []);
   return (
-    <div className=" grid grid-cols-4 p-4">
+    <div className=" grid grid-cols-4 gap-3 p-4">
       {subscriotionDetails.length === 0 ? (
         <div>No subscriptions</div>
       ) : (

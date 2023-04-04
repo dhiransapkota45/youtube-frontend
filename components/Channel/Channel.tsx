@@ -59,7 +59,7 @@ const Channel = () => {
                 <div
                   className={`${
                     route === activeroute ? "w-full" : " w-0"
-                  } absolute bottom-0 h-0.5 rounded-lg  bg-gray-400 duration-300`}
+                  } absolute bottom-0 h-0.5 rounded-lg  bg-gray-400 `}
                 ></div>
               </div>
             </div>

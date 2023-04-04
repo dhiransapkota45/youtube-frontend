@@ -72,7 +72,7 @@ const CommentBox = ({ comment }: Prop) => {
           onSubmit={replySubmitHandler}
           className={` w-full ${
             replyModal ? "h-full" : "h-0"
-          } animation my-2  overflow-hidden  `}
+          }  my-2  overflow-hidden  `}
         >
           <input
             name="reply"

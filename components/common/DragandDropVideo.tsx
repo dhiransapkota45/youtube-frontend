@@ -93,7 +93,7 @@ const DragandDropVideo = ({ data, setData }: Prop) => {
               <div
                 className={`${
                   dargActive ? "bg-gray-200" : ""
-                } animation w-full h-80 border-2 border-dotted rounded-xl overflow-hidden flex justify-center items-center font-semibold text-gray-600`}
+                }  w-full h-80 border-2 border-dotted rounded-xl overflow-hidden flex justify-center items-center font-semibold text-gray-600`}
               >
                 Drag and Drop Video
               </div>

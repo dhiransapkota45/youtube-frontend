@@ -14,6 +14,8 @@ export const fetchuser = createAsyncThunk("user/fetchuser", async () => {
 
 export const channeldetails = async (channelid: any, setChannel: any) => {
   try {
+    console.log(channelid);
+
     const response = await api_instance.post(`/api/users/getchannel`, {
       username: channelid,
     });
