@@ -8,39 +8,23 @@ import {
   channelVideoType,
 } from "../../components/Channel/Channel";
 
-import VideoCard from "../../components/hero/interior/VideoCard";
 import Link from "next/link";
 import VideoTag from "../../components/yourvideos/VideoTag";
 
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
+
 const Yourvideos = () => {
-  const [videos, setVideos] = React.useState<channelType>({} as channelType);
   const { user } = useSelector((store: RootState) => store.activeUser);
+  // const { channelDetails } = useSelector((store: RootState) => store.channel);
 
-  console.log(videos);
+  // const dispatch = useDispatch<AppDispatch>();
 
-  useEffect(() => {
-    channeldetails(user.username, setVideos);
-  }, [user]);
+  // useEffect(() => {
+  //   dispatch(channelDetails2(user.username));
+  // }, [user]);
 
   return (
-    // <div className=" grid grid-cols-3 gap-x-6">
-    //   {videos?.videos?.length === 0 ? (
-    //     <div>
-    //       <div>No videos of yours</div>
-    //       <div>
-    //         Create some form <Link className=" text-blue-500 underline" href="/createvideo"> here </Link>
-    //       </div>
-    //     </div>
-    //   ) : (
-    //     videos.videos?.map((video: channelVideoType) => {
-    //       return (
-    //         <div key={video._id}>
-    //           <VideoCard video={video} />
-    //         </div>
-    //       );
-    //     })
-    //   )}
-    // </div>
     <>
       <div className=" w-full overflow-x-auto">
         <table className="  min-w-max border  ">
@@ -54,7 +38,7 @@ const Yourvideos = () => {
             </tr>
           </thead>
 
-          {videos?.videos?.length === 0 ? (
+          {user?.videos?.length === 0 ? (
             <div>
               <div>No videos of yours</div>
               <div>
@@ -66,7 +50,7 @@ const Yourvideos = () => {
             </div>
           ) : (
             <tbody>
-              {videos.videos?.map((video: channelVideoType, index) => {
+              {user?.videos?.map((video: channelVideoType, index: number) => {
                 return <VideoTag key={video._id} index={index} video={video} />;
               })}
             </tbody>

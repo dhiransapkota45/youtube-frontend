@@ -12,7 +12,6 @@ type Prop = {
 
 const VideoTag = ({ video, index }: Prop) => {
   const [modal, setModal] = React.useState<boolean>(false);
-  console.log(modal);
 
   const oneditHandler = () => {
     toaster("error", "feature currently not available");
@@ -51,7 +50,7 @@ const VideoTag = ({ video, index }: Prop) => {
       </tr>
 
       <ModalLayout closeModal={() => setModal((prev) => !prev)} modal={modal}>
-        <DeleteModal />
+        <DeleteModal videoId={video._id} />
       </ModalLayout>
     </div>
   );

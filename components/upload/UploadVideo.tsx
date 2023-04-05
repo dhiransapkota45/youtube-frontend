@@ -48,6 +48,8 @@ const UploadVideo = () => {
 
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log("im here");
+    
     createVideo(data)
   };
 

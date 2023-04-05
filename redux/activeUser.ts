@@ -30,7 +30,13 @@ const initialState: IinitialState = {
 const activeUserSlice = createSlice({
   name: "activeUser",
   initialState,
-  reducers: {},
+  reducers: {
+    deleteVideoLocal: (state, action) => {
+      state.user.videos = state.user.videos.filter(
+        (video: any) => video._id !== action.payload
+      );
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(activeUser.pending, (state) => {
       state.loading = true;
@@ -45,5 +51,5 @@ const activeUserSlice = createSlice({
       });
   },
 });
-
+export const { deleteVideoLocal } = activeUserSlice.actions;
 export default activeUserSlice.reducer;

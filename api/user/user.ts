@@ -26,3 +26,20 @@ export const channeldetails = async (channelid: any, setChannel: any) => {
     return error;
   }
 };
+
+// export const channelDetails2 = createAsyncThunk(
+//   "user/channelDetails2",
+//   async (channelid: any) => {
+//     try {
+//       console.log(channelid);
+
+//       const response = await api_instance.post(`/api/users/getchannel`, {
+//         username: channelid,
+//       });
+//       return response.data;
+//     } catch (error) {
+//       console.log(error);
+//       return error;
+//     }
+//   }
+// );
