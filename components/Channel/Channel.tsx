@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Banner from "./interior/Banner";
 
-import { channeldetails, channelDetails2 } from "../../api/user/user";
+import { channeldetails } from "../../api/user/user";
 import { useRouter } from "next/router";
 import ChannelVideoCard from "./interior/ChannelVideoCard";
 

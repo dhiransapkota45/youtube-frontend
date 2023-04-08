@@ -72,11 +72,16 @@ const Navbar = () => {
           {mode ? <ImSun /> : <MdOutlineDarkMode />}
         </button>
         <IoNotificationsOutline className="text-2xl" />
-        <div>
+        <div className=" ">
           {loading ? (
             "loading"
           ) : Object.keys(user).length === 0 ? (
-            <Link href="/login">Login</Link>
+            <Link
+              className="bg-bg-secondary  py-2 px-6 text-blue-600 font-semibold rounded-3xl "
+              href="/login"
+            >
+              signin
+            </Link>
           ) : (
             <div className=" w-12 h-12 rounded-full overflow-hidden relative">
               <Image
