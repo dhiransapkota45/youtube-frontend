@@ -2,6 +2,65 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* for background */
+  --primary: white;
+  --secondary: #e2e8f0;
+  --tertery: #94a3b8;
+
+  --dark-primary: black;
+  --dark-secondary: #111827;
+  --dark-tertery: #1f2937;
+
+  /* for text colors */
+  --text-primary: black;
+  --text-secondary: #111827;
+  --text-tertery: #1f2937;
+
+  --dark-primary-text: white;
+  --dark-secondary-text: #e2e8f0;
+  --dark-tertery-text: #94a3b8;
+}
+
+html {
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-tertery: var(--tertery);
+
+  --text-primary: var(--primary-text);
+  --text-secondary: var(--secondary-text);
+  --text-tertery: var(--tertery-text);
+}
+
+html .dark {
+  --color-primary: var(--dark-primary);
+  --color-secondary: var(--dark-secondary);
+  --color-tertery: var(--dark-tertery);
+
+  --text-primary: var(--dark-primary-text);
+  --text-secondary: var(--dark-secondary-text);
+  --text-tertery: var(--dark-tertery-text);
+}
+
 .animation {
   @apply duration-300 ease-in-out;
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: conic-gradient(#0000 10%, #474bff);
+  -webkit-mask: radial-gradient(
+    farthest-side,
+    #0000 calc(100% - 3.8px),
+    #000 0
+  );
+  animation: spinner-zp9dbg 0.8s infinite linear;
+}
+
+@keyframes spinner-zp9dbg {
+  to {
+    transform: rotate(1turn);
+  }
 }

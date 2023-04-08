@@ -6,6 +6,8 @@ import { MdOutlineWatchLater } from "react-icons/md";
 import { AiOutlineLike } from "react-icons/ai";
 import { BiDislike } from "react-icons/bi";
 
+import { RiVideoUploadLine } from "react-icons/ri";
+
 interface Route {
   path: string;
   name: string;
@@ -48,5 +50,10 @@ export const routes: Route[] = [
     path: "/dislikedvideos",
     name: "disliked videos",
     icon: <BiDislike />,
+  },
+  {
+    path: "/createvideo",
+    name: "Upload Video",
+    icon: <RiVideoUploadLine />,
   },
 ];

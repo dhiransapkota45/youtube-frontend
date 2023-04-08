@@ -1,8 +1,8 @@
-
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const baseURL = "http://localhost:8000/";
+// const baseURL = "http://192.168.1.131:8000/";
+const baseURL = process.env.BACKEND_URL;
 
 export const api_instance = axios.create({
   baseURL: baseURL,
@@ -35,7 +35,7 @@ api_instance.interceptors.response.use(
     ) {
       originalRequest._retry = true;
       return axios
-        .post(`${baseURL}/api/users/verifyrefresh`, {
+        .post(`${process.env.BACKEND_URL}/api/users/verifyrefresh`, {
           refreshToken: refreshToken,
         })
         .then((res) => {
@@ -53,4 +53,3 @@ api_instance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-

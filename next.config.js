@@ -26,6 +26,13 @@ const nextConfig = {
       },
     ];
   },
+  env: {
+    // BACKEND_URL: "http://192.168.1.131:8000",
+    BACKEND_URL: "http://localhost:8000",
+  },
+  images: {
+    domains: ["localhost", "192.168.1.131"],
+  },
 };
 
 const securityHeaders = [

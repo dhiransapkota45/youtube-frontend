@@ -1,16 +1,18 @@
-import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { api_instance } from "../api/instance";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { fetchrandomVideos } from "../api/videos/videos";
 
 export interface video {
   _id: string;
   thumbnail: string;
   title: string;
-  uploader: {
+  uploader?: {
     _id: string;
     fullname: string;
     profile_pic: string;
+    username: string;
   };
+  views: number;
+  createdAt?: Date;
 }
 
 interface VideoState {
@@ -24,16 +26,6 @@ const initialState: VideoState = {
   error: null,
   videos: [],
 };
-
-// export const fetchrandomVideos = createAsyncThunk(
-//   "videos/fetchVideos",
-//   async () => {
-//     const response = await api_instance.get("/api/videos/getallvideosrandom");
-//     console.log(response);
-
-//     return response.data.findallvideos;
-//   }
-// );
 
 const videoSlice = createSlice({
   name: "videos",
