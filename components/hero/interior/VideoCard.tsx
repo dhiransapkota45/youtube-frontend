@@ -4,24 +4,25 @@ import { video } from "../../../redux/videoSlice";
 import { SlOptionsVertical } from "react-icons/sl";
 import Modal from "../../common/Modal";
 import { useRouter } from "next/router";
-import Link from "next/link";
 
 type Prop = {
   video: video;
+  index: number | string;
+  openModal: null | number | string;
+  handleModal: (index: number | string) => void;
 };
 
 //yesma profile ma thichda prpofule ma janaparxa
 
 // need to show date also in the VideoCard
-const VideoCard = ({ video }: Prop) => {
+const VideoCard = ({ video, index, handleModal, openModal }: Prop) => {
   const router = useRouter();
   const { _id, thumbnail, title, uploader, createdAt, views } = video;
-  const [openModal, setOpenModel] = useState(false);
 
   return (
     <div
       onClick={() => router.push(`/video/${_id}`)}
-      className=" hover:scale-105 hover:shadow-2xl rounded-lg shadow cursor-pointer "
+      className=" hover:scale-105 hover:shadow-2xl hover:z-10 rounded-lg shadow cursor-pointer "
     >
       <div className="w-full h-60 relative ">
         <Image
@@ -56,13 +57,14 @@ const VideoCard = ({ video }: Prop) => {
         <button
           onClick={(e) => {
             e.stopPropagation();
-            setOpenModel(!openModal);
+            handleModal(index);
+            // setActivemodalIndex(activemodelIndex === null ? video._id : _id);
           }}
           className=" hover:bg-bg-secondary  z-30 p-2 rounded-full absolute top-2 right-3"
         >
           <SlOptionsVertical />
-          <div className=" absolute ">
-            <Modal openModal={openModal} />
+          <div className=" absolute  ">
+            <Modal index={index} openModal={openModal} />
           </div>
         </button>
       </div>
